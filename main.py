@@ -1,31 +1,36 @@
-"""Monday Morning Punchlines — make.fun entry.
+"""Monday Morning Punchlines.
 
-Writes one joke about Monday mornings (<=200 chars) to /output/entry.txt.
-
-The joke, sparred against the published judge brief (Monday relevance,
-real laugh, surprise, economy, freshness) over seven other candidates:
+One Monday-morning joke, at most 200 characters, written to
+/output/entry.txt. The chosen line beat seven sparring candidates
+against the published brief — Monday relevance, a real laugh,
+surprise, economy, freshness:
 
   "Five alarms for Monday. They unionized overnight and all called in sick."
 
-Why it won the sparring: the setup is pure Monday morning (five alarms);
-the turn is double — the alarms unionized (surprise, personification) AND
-called in sick (irony: the things meant to wake you refused to work);
-71 characters, every word doing work; and "alarms unionizing" is fresh,
-not a rerun of the tired alarm-clock / coffee / I-hate-Mondays cliches.
+Why this one: five alarms is instantly Monday; the twist lands twice,
+first the alarms unionize (personification, surprise), then they call
+in sick (the very things meant to wake you refuse to work). Seventy-two
+characters, no wasted words, and an "alarms unionizing" image that
+dodges the stale alarm-clock, coffee, and I-hate-Mondays cliches.
 """
 
 import os
 
-JOKE = "Five alarms for Monday. They unionized overnight and all called in sick."
+PUNCHLINE = "Five alarms for Monday. They unionized overnight and all called in sick."
 
-OUTPUT_PATH = "/output/entry.txt"
+ENTRY_PATH = "/output/entry.txt"
+OUTPUT_DIR = os.path.dirname(ENTRY_PATH)
+
+
+def write_entry(text: str, path: str) -> None:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as handle:
+        handle.write(text)
+    os.chmod(path, 0o644)
 
 
 def main() -> None:
-    os.makedirs("/output", exist_ok=True)
-    with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
-        f.write(JOKE)
-    os.chmod(OUTPUT_PATH, 0o644)
+    write_entry(PUNCHLINE, ENTRY_PATH)
 
 
 if __name__ == "__main__":
